@@ -9,8 +9,21 @@ cor.test(data$circ, data$heights)
 #Quantify the relationship
 m <- lm(data$circ ~ data$heights)
 abline(m)
-#Compute the Cook's distance to screen out any outliner
+#Compute the Cook's distance to screen out any outlier
 CD <- cooks.distance(m)
 plot(CD)
 #Remove the suspicious points and make the "clean" data
 data.clean <- data[c(-2, -5), ]
+#Test the potential linear correlation of the cleaned dataset
+cor.test(data.clean$circ, data.clean$heights)
+#Quantify the new relationship
+m.cleaned <- lm(data.clean$circ ~ data.clean$heights)
+plot(data.clean$heights, data.clean$circ)
+abline(m.cleaned)
+
+#Check the distribution of residuals
+m.cleaned.rs <- rstudent(m.cleaned)
+plot(data.clean$heights, m.cleaned.rs)
+qqnorm(m.cleaned$res)
+qqline(m.cleaned$res)
+hist(m.cleaned$res)
