@@ -9,3 +9,8 @@ cor.test(data$circ, data$heights)
 #Quantify the relationship
 m <- lm(data$circ ~ data$heights)
 abline(m)
+#Compute the Cook's distance to screen out any outliner
+CD <- cooks.distance(m)
+plot(CD)
+#Remove the suspicious points and make the "clean" data
+data.clean <- data[c(-2, -5), ]
