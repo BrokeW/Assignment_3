@@ -27,3 +27,10 @@ plot(data.clean$heights, m.cleaned.rs)
 qqnorm(m.cleaned$res)
 qqline(m.cleaned$res)
 hist(m.cleaned$res)
+#Looking very good!
+
+#Try to fit a quadratic model
+plot(data$heights, data$circ)
+H2 <- data$heights^2
+m2 <- lm (data$circ ~ data$heights+H2)
+plot(m2)
